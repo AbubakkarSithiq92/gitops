@@ -1,0 +1,87 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: app-ingress
+#   namespace: app-stack
+#   annotations:
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - app.abulearning.in
+#     secretName: app-tls
+#   rules:
+#   - host: app.abulearning.in
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: app
+#             port:
+#               number: 80
+#       - path: /grafana
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: grafana
+#             port:
+#               number: 3000
+#       - path: /kibana
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: kibana
+#             port:
+#               number: 5601
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: app-stack
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - app.abulearning.in
+    - kibana.abulearning.in
+    - grafana.abulearning.in
+    secretName: app-tls
+  rules:
+  - host: app.abulearning.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app
+            port:
+              number: 80
+
+  - host: kibana.abulearning.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kibana
+            port:
+              number: 5601
+
+  - host: grafana.abulearning.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 3000
