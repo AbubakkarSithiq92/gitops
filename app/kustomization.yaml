@@ -1,0 +1,6 @@
+resources:
+  - deployment.yml
+  - service.yml
+  - hpa.yml
+  - ingress.yml
+  - cluster-issuer.yaml
