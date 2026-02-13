@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  namespace: app-stack
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
