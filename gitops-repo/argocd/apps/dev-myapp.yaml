@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/AbubakkarSithiq92/gitops.git
-    targetRevision: main
+    targetRevision: master
     path: charts/myapp
     helm:
       valueFiles:
