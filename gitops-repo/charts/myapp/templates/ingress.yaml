@@ -3,13 +3,10 @@ kind: Ingress
 metadata:
   name: app-ingress
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
 spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - app.abulearning.in
-    secretName: app-tls
+  ingressClassName: alb
   rules:
   - host: app.abulearning.in
     http:
