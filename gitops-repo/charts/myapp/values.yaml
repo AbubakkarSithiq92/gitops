@@ -1,13 +1,5 @@
 replicaCount: 1
 
-image:
-  repository: ""
-  tag: ""
-
-ingress:
-  enabled: false
-  host: ""
-
 hpa:
   enabled: false
   min: 1
