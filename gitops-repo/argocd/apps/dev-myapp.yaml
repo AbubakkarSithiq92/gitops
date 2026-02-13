@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/AbubakkarSithiq92/gitops.git
     targetRevision: master
-    path: charts/myapp
+    path: gitops-repo/charts/myapp
     helm:
       valueFiles:
         - values/myapp/dev.yaml
