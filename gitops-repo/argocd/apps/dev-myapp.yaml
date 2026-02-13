@@ -11,7 +11,7 @@ spec:
     path: gitops-repo/charts/myapp
     helm:
       valueFiles:
-        - values/myapp/dev.yaml
+        - gitops-repo/values/myapp/dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: myapp-dev
