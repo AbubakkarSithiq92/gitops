@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: my-deployment
+  namespace: my-ns
+spec: 
+  replicas: 2
+  strategy: 
+    type: rollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels: my-app
+    containers:
+    - name: nginx
+      image: 
+      ports:
+      - containerPort: 5678
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits: 
+          cpu: 500m
+          memory: 500Mi
+      readinessProbe: 
+        httpGet:
+          path: /health
+          port: 5678
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+    volumes:
+      name: 
+      
+      
+
+
+      

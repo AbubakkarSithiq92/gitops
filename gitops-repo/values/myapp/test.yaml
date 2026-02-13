@@ -1,0 +1,20 @@
+replicaCount: 4
+# image:
+#   tag: dev
+# service:
+#   type: NodePort
+#   port: 30080
+# ingress:
+#   enabled: true
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#   hosts:
+#     - host: dev.myapp.local
+#       paths:
+#         - path: /
+#           pathType: ImplementationSpecific
+
+hpa:
+  enabled: true
+  min: 2
+  max: 5

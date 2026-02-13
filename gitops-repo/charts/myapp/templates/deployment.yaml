@@ -4,7 +4,7 @@ metadata:
   name: app
   namespace: app-stack
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -44,22 +44,6 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
           failureThreshold: 3
-
-        # Liveness probe
-        # livenessProbe:
-        #   httpGet:
-        #     path: /dead
-        #     port: 5678
-        #   initialDelaySeconds: 15
-        #   periodSeconds: 10
-        #   failureThreshold: 3
-
-        # startupProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 5678
-        #   failureThreshold: 30
-        #   periodSeconds: 5
       volumes:
       - name: config-volume #creating volume 
         configMap:  # it should read the information from configmap

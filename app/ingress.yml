@@ -49,8 +49,6 @@ spec:
   tls:
   - hosts:
     - app.abulearning.in
-    - kibana.abulearning.in
-    - grafana.abulearning.in
     secretName: app-tls
   rules:
   - host: app.abulearning.in
@@ -63,25 +61,3 @@ spec:
             name: app
             port:
               number: 80
-
-  - host: kibana.abulearning.in
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: kibana
-            port:
-              number: 5601
-
-  - host: grafana.abulearning.in
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grafana
-            port:
-              number: 3000
