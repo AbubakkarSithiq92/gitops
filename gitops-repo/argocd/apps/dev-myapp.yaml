@@ -4,8 +4,8 @@ metadata:
   name: myapp-dev
   namespace: argocd
 spec:
+  project: default
   source:
-    project: default
     repoURL: https://github.com/AbubakkarSithiq92/gitops.git
     targetRevision: main
     path: charts/myapp
