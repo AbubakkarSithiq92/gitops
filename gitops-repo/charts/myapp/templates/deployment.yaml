@@ -20,8 +20,10 @@ spec:
       containers:
       - name: app
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        args:
-          {{- toYaml .Values.args | nindent 12 }}
+        command:
+        - sh
+        - -c
+        - "while true; do echo {{ .Values.message }}; sleep 10; done"
         ports:
         - containerPort: 5678
         volumeMounts:

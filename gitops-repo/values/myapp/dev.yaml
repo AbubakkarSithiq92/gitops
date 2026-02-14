@@ -7,8 +7,7 @@ image:
   repository: alpine
   tag: "3.19"
 
-args:
-  - "-text=Hello from DEV Alpine Environment 🚀- version01"
+message: "Hello from DEV Alpine Environment 🚀 - version01"
 
 hpa:
   enabled: true
