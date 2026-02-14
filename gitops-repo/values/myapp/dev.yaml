@@ -5,7 +5,7 @@ image:
   tag: "0.2.3"
 
 args:
-  - "-text=Hello from DEV Environment 🚀- version2"
+  - "-text=Hello from DEV Environment 🚀- version3DevBranch"
 
 hpa:
   enabled: true
