@@ -4,11 +4,11 @@ metadata:
 replicaCount: 1
 
 image:
-  repository: hashicorp/http-echo
-  tag: "0.2.3"
+  repository: alpine
+  tag: "3.19"
 
 args:
-  - "-text=Hello from DEV Environment 🚀- version4DevBranch"
+  - "-text=Hello from DEV Alpine Environment 🚀- version01"
 
 hpa:
   enabled: true
@@ -17,3 +17,11 @@ hpa:
 
 ingress:
   host: app.abulearning.in
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
