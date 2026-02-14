@@ -1,7 +1,7 @@
 metadata:
   name: myapp-dev
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: hashicorp/http-echo
@@ -12,7 +12,7 @@ args:
 
 hpa:
   enabled: true
-  min: 2
+  min: 1
   max: 5
 
 ingress:
