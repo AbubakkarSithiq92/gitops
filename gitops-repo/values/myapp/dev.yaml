@@ -1,5 +1,12 @@
 replicaCount: 2
 
+image:
+  repository: hashicorp/http-echo
+  tag: "0.2.3"
+
+args:
+  - "-text=Hello from DEV Environment 🚀"
+
 hpa:
   enabled: true
   min: 2
