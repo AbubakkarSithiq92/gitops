@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app
+  name: {{ .Values.metadata.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:

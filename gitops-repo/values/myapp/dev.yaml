@@ -1,3 +1,6 @@
+metadata:
+  name: myapp-dev
+
 replicaCount: 2
 
 image:
