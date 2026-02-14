@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
       - name: app
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: hashicorp/http-echo
         args:
-          {{- toYaml .Values.args | nindent 12 }}
+        - "-text=Hello from Kubernetes Observability Stack"
         ports:
         - containerPort: 5678
         volumeMounts:

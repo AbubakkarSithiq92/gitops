@@ -1,10 +1,5 @@
 replicaCount: 1
 
-image:
-  repository: ""
-  tag: ""
-args: []
-
 hpa:
   enabled: false
   min: 1
