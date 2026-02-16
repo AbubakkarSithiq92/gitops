@@ -25,7 +25,7 @@ spec:
         # - -c
         # - "while true; do echo {{ .Values.message }}; sleep 10; done"
         ports:
-        - containerPort: 5678
+        - containerPort: 80
         volumeMounts:
         - name: html-volume
           mountPath: /usr/share/nginx/html
