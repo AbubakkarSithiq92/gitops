@@ -26,12 +26,13 @@ spec:
         # - "while true; do echo {{ .Values.message }}; sleep 10; done"
         ports:
         - containerPort: 80
-        envFrom:
-          - secretRef:
-              name: myapp-secret
         volumeMounts:
         - name: html-volume
           mountPath: /usr/share/nginx/html
+
+        - name: secret-volume
+          mountPath: /app/secrets
+        readOnly: true
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
@@ -52,3 +53,7 @@ spec:
       - name: html-volume #creating volume 
         configMap:  # it should read the information from configmap
           name: {{ .Values.metadata.name }}-html
+
+      - name: secret-volume
+        secret:
+          secretName: myapp-secret
