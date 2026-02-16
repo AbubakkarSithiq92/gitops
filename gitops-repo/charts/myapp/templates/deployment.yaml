@@ -26,6 +26,9 @@ spec:
         # - "while true; do echo {{ .Values.message }}; sleep 10; done"
         ports:
         - containerPort: 80
+        envFrom:
+          - secretRef:
+            name: myapp-secret
         volumeMounts:
         - name: html-volume
           mountPath: /usr/share/nginx/html
