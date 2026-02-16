@@ -38,13 +38,23 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
 
         # Readiness probe
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 5678
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
+        #   failureThreshold: 3
         readinessProbe:
-          httpGet:
-            path: /
-            port: 5678
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          failureThreshold: 3
+          exec:
+            command:
+              - sh
+              - -c
+              - "echo ready"
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3
+
       volumes:
       - name: config-volume #creating volume 
         configMap:  # it should read the information from configmap
