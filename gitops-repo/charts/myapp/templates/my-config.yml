@@ -1,7 +1,20 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: my-config
+# data:
+#   PORT_NO: "80"
+#   API_BASE_URL: "testing.url.com"
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: my-config
+  name: {{ .Values.metadata.name }}-html
 data:
-  PORT_NO: "80"
-  API_BASE_URL: "testing.url.com"
+  index.html: |
+    <html>
+      <head><title>{{ .Values.envName }}</title></head>
+      <body>
+        <h1>{{ .Values.message }}</h1>
+      </body>
+    </html>

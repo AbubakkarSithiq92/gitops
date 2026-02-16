@@ -4,10 +4,8 @@ metadata:
 replicaCount: 1
 
 image:
-  repository: alpine
-  tag: "3.19"
-
-message: "Hello from DEV Alpine Environment 🚀 - version01"
+  repository: nginx
+  tag: "alpine"
 
 hpa:
   enabled: true
@@ -24,3 +22,6 @@ resources:
   limits:
     cpu: 500m
     memory: 256Mi
+
+envName: DEV
+message: "Hello from DEV 🚀 version01"

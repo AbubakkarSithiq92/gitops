@@ -20,15 +20,15 @@ spec:
       containers:
       - name: app
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        command:
-        - sh
-        - -c
-        - "while true; do echo {{ .Values.message }}; sleep 10; done"
+        # command:
+        # - sh
+        # - -c
+        # - "while true; do echo {{ .Values.message }}; sleep 10; done"
         ports:
         - containerPort: 5678
         volumeMounts:
-        - name: config-volume
-          mountPath: /etc/config
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
@@ -38,24 +38,14 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
 
         # Readiness probe
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 5678
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 5
-        #   failureThreshold: 3
         readinessProbe:
-          exec:
-            command:
-              - sh
-              - -c
-              - "echo ready"
-        initialDelaySeconds: 5
-        periodSeconds: 5
-        failureThreshold: 3
-
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
       volumes:
-      - name: config-volume #creating volume 
+      - name: html-volume #creating volume 
         configMap:  # it should read the information from configmap
-          name: my-config
+          name: {{ .Values.metadata.name }}-html
