@@ -1,0 +1,71 @@
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDB
+metadata:
+  name: prod-mongo
+  namespace: mongodb
+
+spec:
+  crVersion: 1.16.0
+  image: percona/percona-server-mongodb:6.0
+  imagePullPolicy: IfNotPresent
+
+  updateStrategy: SmartUpdate
+
+  secrets:
+    users: prod-mongo-users
+    encryptionKey: prod-mongo-encryption
+
+  pmm:
+    enabled: false
+    image: percona/pmm-client:2.41.0
+
+  backup:
+    enabled: true
+    image: percona/percona-backup-mongodb:2.4.1
+    storages:
+      s3-ap-south-1:
+        type: s3
+        s3:
+          bucket: mongodb-backups-2
+          region: ap-south-1
+          credentialsSecret: s3-secret
+
+  tasks:
+    - name: daily-backup
+      enabled: true
+      schedule: "0 2 * * *"   # daily at 2 AM
+      keep: 7
+      storageName: s3-ap-south-1
+
+    - name: weekly-backup
+      enabled: true
+      schedule: "0 3 * * 0"
+      keep: 4
+      storageName: s3-ap-south-1
+      
+  replsets:
+    - name: rs0
+      size: 3
+
+      affinity:
+        antiAffinityTopologyKey: kubernetes.io/hostname
+
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+
+      volumeSpec:
+        persistentVolumeClaim:
+          storageClassName: gp2
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+
+  sharding:
+    enabled: false
