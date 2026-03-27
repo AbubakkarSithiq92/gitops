@@ -4,8 +4,8 @@ metadata:
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: "alpine"
+  repository: abufibonalabs/demo
+  tag: "v1.0.1"
 
 hpa:
   enabled: true
@@ -23,5 +23,5 @@ resources:
     cpu: 500m
     memory: 256Mi
 
-envName: DEV
-message: "Hello from DEV 🚀 version01"
+# envName: DEV
+# message: "Hello from DEV 🚀 version01"

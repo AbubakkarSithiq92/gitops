@@ -3,10 +3,12 @@ kind: PerconaServerMongoDB
 metadata:
   name: prod-mongo
   namespace: mongodb
+  labels:
+    app: prod-mongo #important for monitoring to work
 
 spec:
   crVersion: 1.16.0
-  image: percona/percona-server-mongodb:6.0
+  image: percona/percona-server-mongodb:7.0
   imagePullPolicy: IfNotPresent
 
   updateStrategy: SmartUpdate
@@ -18,6 +20,7 @@ spec:
   pmm:
     enabled: false
     image: percona/pmm-client:2.41.0
+    serverHost: pmm-service.monitoring.svc.cluster.local
 
   backup:
     enabled: true
@@ -30,33 +33,28 @@ spec:
           region: ap-south-1
           credentialsSecret: s3-secret
 
-  tasks:
-    - name: daily-backup
-      enabled: true
-      schedule: "0 2 * * *"   # daily at 2 AM
-      keep: 7
-      storageName: s3-ap-south-1
-
-    - name: weekly-backup
-      enabled: true
-      schedule: "0 3 * * 0"
-      keep: 4
-      storageName: s3-ap-south-1
+    tasks:
+      - name: daily-backup
+        enabled: true
+        # schedule: "*/1 * * * *"
+        schedule: "30 20 * * *"
+        keep: 7
+        storageName: s3-ap-south-1
       
   replsets:
     - name: rs0
-      size: 3
+      size: 2
 
       affinity:
         antiAffinityTopologyKey: kubernetes.io/hostname
 
       resources:
         requests:
-          cpu: "500m"
-          memory: "1Gi"
+          cpu: "200m"
+          memory: "256Mi"
         limits:
-          cpu: "1"
-          memory: "2Gi"
+          cpu: "500m"
+          memory: "512Mi"
 
       volumeSpec:
         persistentVolumeClaim:
@@ -66,6 +64,9 @@ spec:
           resources:
             requests:
               storage: 10Gi
+
+      expose:
+        enabled: true
 
   sharding:
     enabled: false

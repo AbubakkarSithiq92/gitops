@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pmm-server
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pmm-server
+  template:
+    metadata:
+      labels:
+        app: pmm-server
+    spec:
+      containers:
+        - name: pmm-server
+          image: percona/pmm-server:2
+          ports:
+            - containerPort: 443
+          env:
+            - name: DISABLE_SSL
+              value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pmm-service
+  namespace: monitoring
+spec:
+  selector:
+    app: pmm-server
+  ports:
+    - port: 443
+      targetPort: 443

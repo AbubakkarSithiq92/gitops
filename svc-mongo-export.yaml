@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-exporter
+  namespace: mongodb
+  labels:
+    app: prod-mongo
+spec:
+  selector:
+    app: prod-mongo
+  ports:
+    - name: metrics
+      port: 9216
+      targetPort: 9216
